@@ -1,0 +1,43 @@
+import 'package:flutter/material.dart';
+
+class AppColors {
+  static const Color white = Colors.white;
+  static const Color black = Colors.black;
+  static const Color transparent = Colors.transparent;
+  static const Color c232D3A = Color(0xFf232D3A);
+  static Color appBgColor = const Color(0xFFFFFFFF);
+  static Color primary = const Color(0xFF26BDBE);
+  static Color cE2EAFF = const Color(0xFFE2EAFF);
+  static Color dividerColor = const Color(0xFFE7E7E7);
+  static Color c2C2C2C = const Color(0xFF2C2C2C);
+  static Color c787878 = const Color(0xFF787878);
+  static Color c656565 = const Color(0xFF656565);
+  static Color cEE = const Color(0xFFeeeeee);
+  static Color c2B1AF4 = const Color(0xFF2B1AF4);
+  static Color c070707 = const Color(0xFF070707);
+  static Color c3B5998 = const Color(0xFF3B5998);
+  static Color c4285F4 = const Color(0xFF4285F4);
+  static Color cEEEEEE = const Color(0xFFEEEEEE);
+  static Color c676767 = const Color(0xFF676767);
+  static Color c291C6C = const Color(0xFF291C6C);
+  static Color c9B9B9B = const Color(0xFF9B9B9B);
+  static Color E0F6FF = const Color(0xFFE0F6FF);
+  static Color c128687 = const Color(0xFF128687);
+  static Color c9C9C9C= const Color(0xFF9C9C9C);
+  static Color c5E5E5E= const Color(0xFF5E5E5E);
+  static Color cD7D7D7= const Color(0xFFD7D7D7);
+  static Color c5B5B5B= const Color(0xFF5B5B5B);
+  static Color cC6C6C6= const Color(0xFFC6C6C6);
+  static Color cC7C7C7= const Color(0xFFC7C7C7);
+  static Color c222222= const Color(0xFF222222);
+  static Color c242424= const Color(0xFF242424);
+  static Color c6B6B6B= const Color(0xFF6B6B6B);
+  static Color cCFC5FF= const Color(0xFFCFC5FF);
+  static Color c403572= const Color(0xFF403572);
+  static Color c170186= const Color(0xFF170186);
+  static Color c26BDBE= const Color(0xFF26BDBE);
+  static Color cC7FFE1= const Color(0xFFC7FFE1);
+  static Color cFCD435= const Color(0xFFFCD435);
+  static Color cF9790A= const Color(0xFFF9790A);
+  static Color cFFF1BB= const Color(0xFFFFF1BB);
+}
