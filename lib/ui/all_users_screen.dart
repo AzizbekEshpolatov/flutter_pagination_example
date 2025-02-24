@@ -13,33 +13,35 @@ class UsersScreen extends StatefulWidget {
 }
 
 class _UsersScreenState extends State<UsersScreen> {
-  final ScrollController _scrollController = ScrollController();
+  int page = 1;
+  final ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    context.read<UsersBloc>().add(FetchUsers());
-    _scrollController.addListener(_onScroll);
+    _loadMore(page);
+    scrollController.addListener(() {
+      debugPrint("CURRENT LIST PIXEL: ${scrollController.position.pixels}");
+      debugPrint(
+          "MAX LIST PIXEL: ${scrollController.position.maxScrollExtent}");
+      if (scrollController.position.pixels >=
+          scrollController.position.maxScrollExtent) {
+        _loadMore(page);
+      }
+    });
   }
 
-  void _onScroll() {
-    if (!_scrollController.hasClients) return;
-    final maxScroll = _scrollController.position.maxScrollExtent;
-    final currentScroll = _scrollController.position.pixels;
-    if (currentScroll >= maxScroll - 200) {
-      final currentState = context.read<UsersBloc>().state;
-      if (currentState.status != UserStatus.loading &&
-          !currentState.hasReachedMax) {
-        context.read<UsersBloc>().add(FetchUsers());
-      }
+  void _loadMore(int currentPage) {
+    final bloc = context.read<UsersBloc>();
+    if (bloc.state.status != UserStatus.loading) {
+      bloc.add(FetchUsers(page: currentPage));
+      page++;
     }
-    debugPrint("Scroll position: $currentScroll");
   }
 
   @override
   void dispose() {
-    _scrollController.removeListener(_onScroll);
-    _scrollController.dispose();
+    scrollController.dispose();
     super.dispose();
   }
 
@@ -53,33 +55,23 @@ class _UsersScreenState extends State<UsersScreen> {
             return const Center(child: CircularProgressIndicator());
           } else if (state.status == UserStatus.failure) {
             return Center(child: Text("Error: ${state.errorMessage}"));
-          } else if (state.status == UserStatus.success ||
-              state.status == UserStatus.loading) {
-            if (state.users.isEmpty) {
-              return const Center(child: Text("No users available"));
-            }
-            final itemCount = state.hasReachedMax
-                ? state.users.length
-                : state.users.length +
-                    (state.status == UserStatus.loading ? 1 : 0);
-
+          } else {
             return ListView.builder(
-              controller: _scrollController,
-              physics: const AlwaysScrollableScrollPhysics(),
-              itemCount: itemCount,
+              controller: scrollController,
+              itemCount: state.users.length + 1,
               itemBuilder: (context, index) {
-                if (index >= state.users.length) {
-                  return const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16),
+                if (index == state.users.length) {
+                  return const SizedBox(
+                    height: 40,
                     child: Center(child: CircularProgressIndicator()),
                   );
+                } else {
+                  final user = state.users[index];
+                  return UserItem(user: user);
                 }
-                final user = state.users[index];
-                return UserItem(user: user);
               },
             );
           }
-          return const SizedBox.shrink();
         },
       ),
     );
